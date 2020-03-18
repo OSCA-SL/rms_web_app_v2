@@ -38,7 +38,7 @@
                     <svg class="c-icon mr-2">
                         <use xlink:href="{{ asset('assets/icons/coreui/symbols/free-symbol-defs.svg#cui-account-logout') }}"></use>
                     </svg>
-                    <form action="{{ route('admin.logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-ghost-dark btn-block">
                             Logout
