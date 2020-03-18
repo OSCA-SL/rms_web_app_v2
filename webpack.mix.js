@@ -29,5 +29,10 @@ mix.webpackConfig(webpack => {
     };
 });
 
+/*
+ / Copy svg defs
+*/
+mix.copy('resources/assets/icons/coreui/symbols/free-symbol-defs.svg', 'public/assets/icons/coreui/symbols');
+
 mix.js('resources/js/admin/home.js', 'public/js/admin')
     .sass('resources/sass/admin/home.scss', 'public/css/admin');
