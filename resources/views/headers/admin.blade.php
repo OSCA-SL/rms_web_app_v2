@@ -3,14 +3,16 @@
     <button class="c-header-toggler c-class-toggler d-lg-none mr-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
         <span class="c-header-toggler-icon"></span>
     </button>
-    <a class="c-header-brand d-sm-none" href="#">
+    <a class="c-header-brand d-sm-none" href="{{ route('home') }}">
         OSCA RMS
     </a>
     <button class="c-header-toggler c-class-toggler ml-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show">
         <span class="c-header-toggler-icon"></span>
     </button>
-
-    <ul class="c-header-nav "><li class="c-header-nav-item px-3">
+    <a class="c-header-brand d-lg-none c-header-brand-sm-up-center" href="{{ route('home') }}">
+        OSCA RMS
+    </a>
+    <ul class="c-header-nav d-md-down-none"><li class="c-header-nav-item px-3">
             <a class="c-header-nav-link" href="{{ route('home') }}">
                 Dashboard
             </a>
