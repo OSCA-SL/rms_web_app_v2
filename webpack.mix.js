@@ -11,5 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+// mix.js('resources/js/app.js', 'public/js')
+//    .sass('resources/sass/app.scss', 'public/css');
+
+/*
+ / Load jqeury from webpack to avoid conflicts.
+*/
+
+mix.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+            })
+        ]
+    };
+});
+
+mix.js('resources/js/admin/home.js', 'public/js/admin')
+    .sass('resources/sass/admin/home.scss', 'public/css/admin');
