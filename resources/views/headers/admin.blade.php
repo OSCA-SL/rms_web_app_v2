@@ -34,17 +34,15 @@
                     Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                <button class="dropdown-item" type="submit">
                     <svg class="c-icon mr-2">
                         <use xlink:href="{{ asset('assets/icons/coreui/symbols/free-symbol-defs.svg#cui-account-logout') }}"></use>
                     </svg>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-ghost-dark btn-block">
-                            Logout
-                        </button>
-                    </form>
-                </a>
+                    Logout
+                </button>
+                </form>
             </div>
         </li>
     </ul>
