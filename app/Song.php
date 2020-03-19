@@ -28,7 +28,7 @@ class Song extends Model
      * Get the artists associated with the song.
      */
     public function artists(){
-        return $this->belongsToMany('App\Models\Artist', 'song_artists')->withPivot('type');
+        return $this->belongsToMany('App\Artist', 'song_artists')->withPivot('type');
     }
 
     /**
@@ -36,14 +36,14 @@ class Song extends Model
      */
     public function matches()
     {
-        return $this->hasMany('App\Models\Match', 'song_id');
+        return $this->hasMany('App\Match', 'song_id');
     }
 
     /**
      * Get the singers associated with the song.
      */
     public function singers(){
-        return $this->belongsToMany('App\Models\Artist', 'song_artists')
+        return $this->belongsToMany('App\Artist', 'song_artists')
             ->withPivot('type')
             ->wherePivot('type', '=', '1');
     }
@@ -52,7 +52,7 @@ class Song extends Model
      * Get the musicians associated with the song.
      */
     public function musicians(){
-        return $this->belongsToMany('App\Models\Artist', 'song_artists')
+        return $this->belongsToMany('App\Artist', 'song_artists')
             ->withPivot('type')
             ->wherePivot('type', '=', '2');
     }
@@ -61,7 +61,7 @@ class Song extends Model
      * Get the writers associated with the song.
      */
     public function writers(){
-        return $this->belongsToMany('App\Models\Artist', 'song_artists')
+        return $this->belongsToMany('App\Artist', 'song_artists')
             ->withPivot('type')
             ->wherePivot('type', '=', '3');
     }
@@ -70,7 +70,7 @@ class Song extends Model
      * Get the producers associated with the song.
      */
     public function producers(){
-        return $this->belongsToMany('App\Models\Artist', 'song_artists')
+        return $this->belongsToMany('App\Artist', 'song_artists')
             ->withPivot('type')
             ->wherePivot('type', '=', '4');
     }
@@ -79,14 +79,14 @@ class Song extends Model
      * Get the user who added the song.
      */
     public function addedUser(){
-        return $this->belongsTo('App\Models\User', 'added_by');
+        return $this->belongsTo('App\User', 'added_by');
     }
 
     /**
      * Get the user who approved the song.
      */
     public function approvedUser(){
-        return $this->belongsTo('App\Models\User', 'approved_by');
+        return $this->belongsTo('App\User', 'approved_by');
     }
 
     /**

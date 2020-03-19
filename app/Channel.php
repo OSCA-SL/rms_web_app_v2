@@ -21,14 +21,14 @@ class Channel extends Model
      */
     public function matches()
     {
-        return $this->hasMany('App\Models\Match', 'song_id');
+        return $this->hasMany('App\Match', 'song_id');
     }
 
     /**
      * Get the contact user associated with the channel.
      */
     public function contactUser(){
-        return $this->belongsTo('App\Models\User', 'contact_user');
+        return $this->belongsTo('App\User', 'contact_user');
     }
 
     /**
@@ -36,14 +36,14 @@ class Channel extends Model
      */
     public function fee()
     {
-        return $this->hasMany('App\Models\Fee', 'channel_id');
+        return $this->hasMany('App\Fee', 'channel_id');
     }
 
     /**
      * Get the user who added the channel.
      */
     public function addedUser(){
-        return $this->belongsTo('App\Models\User', 'added_by');
+        return $this->belongsTo('App\User', 'added_by');
     }
 
     /*

@@ -20,14 +20,14 @@ class Artist extends Model
      * Get the user associated with the artist.
      */
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
 
     /**
      * Get the songs associated with the artists.
      */
     public function songs(){
-        return $this->belongsToMany('App\Models\Song', 'song_artists')->withPivot('type');
+        return $this->belongsToMany('App\Song', 'song_artists')->withPivot('type');
     }
 
     /**
