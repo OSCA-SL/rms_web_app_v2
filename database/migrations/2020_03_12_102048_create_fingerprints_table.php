@@ -14,8 +14,11 @@ class CreateFingerprintsTable extends Migration
     public function up()
     {
         Schema::create('fingerprints', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('hash_key');
+            $table->unsignedBigInteger('hash_value');
+            $table->unsignedBigInteger('song_id');
+
+            $table->primary(['hash_key', 'hash_value', 'song_id']);
         });
     }
 
