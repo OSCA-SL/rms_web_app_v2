@@ -36,3 +36,6 @@ mix.copy('resources/assets/icons/coreui/symbols/free-symbol-defs.svg', 'public/a
 
 mix.js('resources/js/admin/home.js', 'public/js/admin')
     .sass('resources/sass/admin/home.scss', 'public/css/admin');
+
+mix.js('resources/js/artists/index.js', 'public/js/artists')
+    .sass('resources/sass/artists/index.scss', 'public/css/artists');

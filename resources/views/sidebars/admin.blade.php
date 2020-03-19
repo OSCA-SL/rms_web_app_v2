@@ -19,7 +19,7 @@
 
         <li class="c-sidebar-nav-title">Artists</li>
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="#">
+            <a class="c-sidebar-nav-link" href="{{ route('artists.index') }}">
                 <i class="fas fa-user-tie c-sidebar-nav-icon"></i>
                 View Artists
             </a>

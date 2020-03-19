@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * =============Artists===================
+ * resources: index
+ * auth: web
+ * ========================================
+ */
+Route::resource('artists', 'ArtistController')->only([
+    'index'
+])->middleware('auth:web');

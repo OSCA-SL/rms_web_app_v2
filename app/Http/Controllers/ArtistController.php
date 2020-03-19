@@ -10,11 +10,12 @@ class ArtistController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        //
+        $artists = Artist::all();
+        return view('artists.index', ['artists'=>$artists]);
     }
 
     /**
