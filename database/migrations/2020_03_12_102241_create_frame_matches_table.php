@@ -14,8 +14,13 @@ class CreateFrameMatchesTable extends Migration
     public function up()
     {
         Schema::create('frame_matches', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('id');
+            $table->dateTime('timestamp');
+            $table->unsignedBigInteger('channel_id');
+            $table->unsignedBigInteger('song_id');
+            $table->integer('score');
+
+            $table->index(['channel_id', 'timestamp']);
         });
     }
 
