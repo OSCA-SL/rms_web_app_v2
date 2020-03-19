@@ -14,8 +14,13 @@ class CreateMatchesTable extends Migration
     public function up()
     {
         Schema::create('matches', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->unsignedBigInteger('channel_id');
+            $table->unsignedBigInteger('song_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
