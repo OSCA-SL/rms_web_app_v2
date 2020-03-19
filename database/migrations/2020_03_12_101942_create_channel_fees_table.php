@@ -14,8 +14,13 @@ class CreateChannelFeesTable extends Migration
     public function up()
     {
         Schema::create('channel_fees', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('channel_id');
+            $table->dateTime('effective_from');
+            $table->decimal('fee', 8, 2)->default(100);
+            $table->unsignedBigInteger('added_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
