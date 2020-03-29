@@ -39,3 +39,6 @@ mix.js('resources/js/admin/home.js', 'public/js/admin')
 
 mix.js('resources/js/artists/index.js', 'public/js/artists')
     .sass('resources/sass/artists/index.scss', 'public/css/artists');
+
+mix.js('resources/js/songs/index.js', 'public/js/songs')
+    .sass('resources/sass/songs/index.scss', 'public/css/songs');
