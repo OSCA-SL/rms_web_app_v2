@@ -10,11 +10,23 @@ class SongController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Renderable|\Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $songs = Song::with([
+                'addedUser',
+                'approvedUser',
+                'singers.user',
+                'musicians.user',
+                'writers.user',
+                'producers.user',
+            ])->get();
+            return response()->json($songs);
+        }
+
+         return view('songs.index');
     }
 
     /**

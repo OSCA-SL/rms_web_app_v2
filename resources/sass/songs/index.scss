@@ -1,0 +1,26 @@
+// CoreUI
+@import "~@coreui/coreui/scss/coreui";
+
+// CoreUI Icons
+@import "~@coreui/icons/css/all.css";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// datatables-bs4
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+
+// datatables-bs4-fixedheader
+@import "~datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css";
+
+// Custom styles
+@import "../custom";
+
+#table-container{
+    overflow: scroll;
+}
+
+ul {
+    list-style: inside;
+    padding-left: 0;
+}

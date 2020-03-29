@@ -30,3 +30,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('artists', 'ArtistController')->only([
     'index'
 ])->middleware('auth:web');
+
+/**
+ * =============Artists===================
+ * resources: index
+ * auth: web
+ * ========================================
+ */
+Route::resource('songs', 'SongController')->only([
+    'index'
+])->middleware('auth:web');
+
+Route::get('song/rehash/{song}', "SongController@reHash")->name('rehash.submit');

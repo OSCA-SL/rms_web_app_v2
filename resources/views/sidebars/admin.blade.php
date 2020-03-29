@@ -33,7 +33,7 @@
 
         <li class="c-sidebar-nav-title">Songs</li>
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="#">
+            <a class="c-sidebar-nav-link" href="{{ route('songs.index') }}">
                 <i class="fas fa-volume-up c-sidebar-nav-icon"></i>
                 View Songs
             </a>
