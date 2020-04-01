@@ -39,7 +39,7 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="#">
+            <a class="c-sidebar-nav-link" href="{{ route('songs.create') }}">
                 <i class="fas fa-file-audio c-sidebar-nav-icon"></i>
                 Add New Song
             </a>

@@ -32,13 +32,13 @@ Route::resource('artists', 'ArtistController')->only([
 ])->middleware('auth:web');
 
 /**
- * =============Artists===================
- * resources: index
+ * =============Songs===================
  * auth: web
  * ========================================
  */
-Route::resource('songs', 'SongController')->only([
-    'index'
-])->middleware('auth:web');
-
+Route::get('songs/titles', 'SongController@getSongTitles')->middleware('auth:web')->name('songs.titles');
 Route::get('song/rehash/{song}', "SongController@reHash")->name('rehash.submit');
+
+Route::resource('songs', 'SongController')->only([
+    'index', 'create', 'store', 'show'
+])->middleware('auth:web');
