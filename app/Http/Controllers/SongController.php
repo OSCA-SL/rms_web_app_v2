@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
+use App\Events\SongUploaded;
 use App\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SongController extends Controller
 {
@@ -65,12 +67,17 @@ class SongController extends Controller
             $song->artists()->attach($request->input('producers'), ['type' => 4]);
 
             $file = $request->file('song');
-            $file_name = $song->id.".".$file->getClientOriginalExtension();
-            $path =$file->storeAs('songs', $file_name, 'public');
+            $filename = $song->id.".".$file->getClientOriginalExtension();
+            $path =$file->storeAs('songs', $filename, 'public');
 
             $song->file_path = '/storage/'.$path;
 
             $song->save();
+
+            Log::channel('song_uploads')
+                ->info('Song ID:'.$song->id.' has been uploaded to the cloud.');
+
+            event(new SongUploaded($song, $filename));
 
             return response("Successfully Uploaded the song", 200);
         }

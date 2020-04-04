@@ -57,6 +57,20 @@ return [
     'asset_url' => env('ASSET_URL', null),
 
     /*
+        |--------------------------------------------------------------------------
+        | Remote Server config
+        |--------------------------------------------------------------------------
+        |
+        |
+        |
+        */
+
+    'radio_server' => env('RADIO_SERVER_URL', 'gjgjgjhghj'),
+    'radio_username' => env('API_USERNAME', 'fsfds'),
+    'radio_password' => env('API_PASSWORD', 'sdfajksfh'),
+    'app_domain' => env('APP_DOMAIN', 'localhost'),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
@@ -67,7 +81,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Colombo',
 
     /*
     |--------------------------------------------------------------------------
