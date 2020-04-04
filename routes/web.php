@@ -28,7 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
  * ========================================
  */
 Route::resource('artists', 'ArtistController')->only([
-    'index'
+    'index', 'create', 'store'
 ])->middleware('auth:web');
 
 /**

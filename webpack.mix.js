@@ -45,3 +45,6 @@ mix.js('resources/js/songs/index.js', 'public/js/songs')
 
 mix.js('resources/js/songs/create.js', 'public/js/songs')
     .sass('resources/sass/songs/create.scss', 'public/css/songs');
+
+mix.js('resources/js/artists/create.js', 'public/js/artists')
+    .sass('resources/sass/artists/create.scss', 'public/css/artists');
