@@ -35,7 +35,9 @@ try {
             }
         });
 
-        $('.select2').select2();
+        $('.select2').select2({
+            placeholder: "Please Select"
+        });
 
         create_song_form.on('reset', function (e) {
             $('.select2').val(null).trigger('change');
