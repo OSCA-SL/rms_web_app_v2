@@ -16,6 +16,8 @@ try {
 
     $(document).ready(function () {
 
+        let create_song_form = $('#create-song-form');
+
         bsCustomFileInput.init();
         $.ajax({
             type: 'GET',
@@ -35,7 +37,7 @@ try {
 
         $('.select2').select2();
 
-        $('#create-song').on('reset', function (e) {
+        create_song_form.on('reset', function (e) {
             $('.select2').val(null).trigger('change');
         });
 
@@ -44,7 +46,7 @@ try {
             autoclose: true
         });
 
-        $('#create-song-form').on('submit',(function(event) {
+        create_song_form.on('submit',(function(event) {
             event.preventDefault();
             let fm = this;
 
