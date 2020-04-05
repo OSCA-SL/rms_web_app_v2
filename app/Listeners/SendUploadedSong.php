@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
 
-class SendUploadedSong
+class SendUploadedSong implements ShouldQueue
 {
     /**
      * Create the event listener.
