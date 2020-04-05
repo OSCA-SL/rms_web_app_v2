@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
-use App\Events\SongUploaded;
+use App\Jobs\SendUploadedSong;
 use App\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -77,7 +77,9 @@ class SongController extends Controller
             Log::channel('song_uploads')
                 ->info('Song ID:'.$song->id.' has been uploaded to the cloud.');
 
-            event(new SongUploaded($song, $filename));
+            SendUploadedSong::dispatch($song, $filename)
+                ->onConnection('database')
+                ->onQueue('uploaded_songs');
 
             return response("Successfully Uploaded the song", 200);
         }
