@@ -22,7 +22,7 @@ class SongUploaded
      * Create a new event instance.
      *
      * @param Song $song
-     * @param $file_path
+     * @param $filename
      */
     public function __construct(Song $song, $filename)
     {
