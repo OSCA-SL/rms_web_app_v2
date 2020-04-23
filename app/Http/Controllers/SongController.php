@@ -77,7 +77,7 @@ class SongController extends Controller
             Log::channel('song_uploads')
                 ->info('Song ID:'.$song->id.' has been uploaded to the cloud.');
 
-            SendUploadedSong::dispatch($song, $filename)
+            SendUploadedSong::dispatch($song, $filename, $path)
                 ->onConnection('database')
                 ->onQueue('uploaded_songs');
 

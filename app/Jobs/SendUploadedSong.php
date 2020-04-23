@@ -21,16 +21,20 @@ class SendUploadedSong implements ShouldQueue
 
     protected $song;
     protected $filename;
+    protected $local_path;
+
     /**
      * Create a new job instance.
      *
      * @param Song $song
      * @param $filename
+     * @param $local_path
      */
-    public function __construct(Song $song, $filename)
+    public function __construct(Song $song, $filename, $local_path)
     {
         $this->song = $song;
         $this->filename = $filename;
+        $this->local_path = $local_path;
     }
 
     /**
@@ -42,72 +46,67 @@ class SendUploadedSong implements ShouldQueue
     {
         $song = $this->song;
         $filename = $this->filename;
+        $local_fqp = storage_path('app/public/'.$this->local_path);
 
         try{
-            $local_file  = Storage::disk('public')->get("/songs/{$filename}");
+            if (!file_exists($local_fqp)){
+                throw new FileNotFoundException();
+            }
 
-            Storage::disk('ftp')->put($filename, $local_file);
-            $remote_file_exists = Storage::disk('ftp')->exists($filename);
+            $song->remote_file_path = "http://song-hash.osca.lk/storage/songs/".$filename;
+            $song->hash_status = 1;
+            $song->save();
 
-            if ($remote_file_exists === true){
-                $song->remote_file_path = "http://song-hash.osca.lk/storage/songs/".$filename;
-                $song->hash_status = 1;
-                $song->save();
+            $system_url = config('app.radio_server');
+            $client = new Client();
+            $response = $client->request('POST', $system_url, [
+                'multipart' => [
+                    [
+                        'name' => 'username',
+                        'contents' => config('app.radio_username'),
+                    ],
+                    [
+                        'name' => 'password',
+                        'contents' => config('app.radio_password'),
+                    ],
+                    [
+                        'name' => 'id',
+                        'contents' => $song->id,
+                    ],
+                    [
+                        'name' => 'file_name',
+                        'contents' => $filename,
+                    ],
+                    [
+                        'name' => 'song_file',
+                        'contents' => fopen($local_fqp, 'r'),
+                    ],
+                    [
+                        'name' => 'ftp',
+                        'contents' => true,
+                    ],
+                ]
+            ]);
 
-                $system_url = config('app.radio_server');
-                $client = new Client();
-                $response = $client->request('POST', $system_url, [
-                    'multipart' => [
-                        [
-                            'name' => 'username',
-                            'contents' => config('app.radio_username'),
-                        ],
-                        [
-                            'name' => 'password',
-                            'contents' => config('app.radio_password'),
-                        ],
-                        [
-                            'name' => 'id',
-                            'contents' => $song->id,
-                        ],
-                        [
-                            'name' => 'file_name',
-                            'contents' => $filename,
-                        ],
-                        [
-                            'name' => 'ftp',
-                            'contents' => true,
-                        ],
-                    ]
-                ]);
-
-                $response_status = $response->getStatusCode();
-                $song->refresh();
-                $fp_count = Fingerprint::where('song_id', $song->id)->count();
-                if ($response_status >=200 && $response_status <300){
-                    if($fp_count > 0 ){
-                        $song->hash_status = 3;
-                        Log::channel('song_uploads')
-                            ->info('song ID:'.$song->id.' - successfully hashed.');
-                    }
-                    else{
-                        $song->hash_status = 2;
-                        Log::channel('song_uploads')
-                            ->error('song ID:'.$song->id.' - request successful but not hashed.');
-                    }
+            $response_status = $response->getStatusCode();
+            $song->refresh();
+            $fp_count = Fingerprint::where('song_id', $song->id)->count();
+            if ($response_status >=200 && $response_status <300){
+                if($fp_count > 0 ){
+                    $song->hash_status = 3;
+                    Log::channel('song_uploads')
+                        ->info('song ID:'.$song->id.' - successfully hashed.');
                 }
                 else{
                     $song->hash_status = 2;
                     Log::channel('song_uploads')
-                        ->error('song ID:'.$song->id.' - request not successful. Response : '.$response->getBody()->getContents());
+                        ->error('song ID:'.$song->id.' - request successful but not hashed.');
                 }
-                $song->save();
             }
             else{
-                $song->hash_status = 0;
-                $song->save();
+                $song->hash_status = 2;
                 Log::channel('song_uploads')
-                    ->error('song ID:'.$song->id.' - file not found in the remote server.');
+                    ->error('song ID:'.$song->id.' - request not successful. Response : '.$response->getBody()->getContents());
             }
             $song->save();
         }
